@@ -8,9 +8,15 @@ export default function Home() {
 
   const [participants, setParticipants] = useState<string[]>([]);
   const [participantName, setParticipantName] = useState('');
+  const [qtdeParticipantName, setqtdeParticipantName] = useState(0);
   
   function handleParticipantAdd(){
     // console.log("você clicou no botao adicionar")
+
+    //Novas formas de utilizar tratamentos de analise de código, aparece nos boxes no app.
+    // console.warn('Entrou na condição','handleParticipantAdd')
+    // console.error('Entrou na condição','handleParticipantAdd')
+
     if (participantName === ""){
       return Alert.alert("Participante em branco","Não será possivel incluir um nome em branco, nulo ou vazio.");
     }
@@ -20,6 +26,7 @@ export default function Home() {
     // participants.push('Ana');
     setParticipants(prevState=>[...prevState,participantName]);
     setParticipantName('');
+    setqtdeParticipantName(qtdeParticipantName+1); 
   }
 
   function handleParticipantRemove(name:string){
@@ -31,15 +38,23 @@ export default function Home() {
     
     Alert.alert("Remover",`Deseja remover o participante ${name}?`,[
       {
-        text:'Sim',
-        onPress:() => setParticipants(previState => previState.filter(participant => participant !== name))
-        //Deletado Alert.alert("Deletado!")
+        text:'Sim',        
+        onPress:() => setParticipants(previState => previState.filter(participant => participant !== name))        
+        //Deletado Alert.alert("Deletado!")        
       },
       {
         text:'Não',
         style:'cancel'
-      },      
+      },
     ]);
+
+
+
+    //if (participants.find((nome) => nome === name )){
+    //}
+
+    
+    
   }
 
   return (
@@ -47,6 +62,15 @@ export default function Home() {
       <Text style={styles.eventName}>Evento - Aniversário</Text>
       <Text style={styles.eventDate}>Data do Evento - 29/03/2023</Text>
       
+      <View style={styles.form}> 
+        <TouchableOpacity style={styles.button} >
+          <Text style={styles.buttonText}>
+            {qtdeParticipantName}
+         </Text>        
+        </TouchableOpacity> 
+      </View>
+
+
       <View style={styles.form}>
         <TextInput 
           style={styles.input}
